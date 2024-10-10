@@ -1,6 +1,12 @@
 package machine.gpio;
 
 public class Pin {
+    static final int INPUT = 0;
+    static final int OUTPUT = 1;
+    static final int INPUT_PULL_UP = 2;
+    static final int INPUT_PULL_DOWN = 3;
+    static final int OUTPUT_OPEN_DRAIN = 4;
+
     final int pin;
 
     private static native void setMode0(int pin, int mode);
@@ -9,15 +15,15 @@ public class Pin {
 
     public static void setMode(int pin, PinMode mode) {
         if(mode == PinMode.INPUT)
-            Pin.setMode0(pin, 0);
+            Pin.setMode0(pin, Pin.INPUT);
         else if(mode == PinMode.OUTPUT)
-            Pin.setMode0(pin, 1);
+            Pin.setMode0(pin, Pin.OUTPUT);
         else if(mode == PinMode.INPUT_PULL_UP)
-            Pin.setMode0(pin, 2);
+            Pin.setMode0(pin, Pin.INPUT_PULL_UP);
         else if(mode == PinMode.INPUT_PULL_DOWN)
-            Pin.setMode0(pin, 3);
-        else if(mode == PinMode.OUTPUT_OPEN_DRAIN)
-            Pin.setMode0(pin, 4);
+            Pin.setMode0(pin, Pin.INPUT_PULL_DOWN);
+        else
+            Pin.setMode0(pin, Pin.OUTPUT_OPEN_DRAIN);
     }
 
     public Pin(int pin) {
