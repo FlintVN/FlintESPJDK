@@ -16,8 +16,9 @@ public class Pin {
         Pin.setMode(pin, mode);
     }
 
-    public void setMode(int mode) {
+    public Pin setMode(int mode) {
         Pin.setMode(pin, mode);
+        return this;
     }
 
     public boolean readPin() {
