@@ -1,8 +1,8 @@
 
 MODULE_NAME         :=  esp.io
 JC                  :=  javac
-MODULE_SOURCE_PATH  :=  Src
-OUTPUT_DIR          :=  Bin
+MODULE_SOURCE_PATH  :=  src
+OUTPUT_DIR          :=  bin
 
 OPT                 :=  -g
 JFLAGS              :=  -Xlint:all -XDstringConcat=inline
