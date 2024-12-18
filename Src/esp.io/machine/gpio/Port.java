@@ -1,11 +1,13 @@
 package machine.gpio;
 
-public class Port {
+import flint.machine.PortController;
+
+public class Port extends PortController {
     private final byte[] pins;
 
-    public static native void setMode(byte[] pins, int mode);
-    public static native int readPort(byte[] pins);
-    public static native void writePort(byte[] pins, int value);
+    private static native void setMode(byte[] pins, int mode);
+    private static native int readPort(byte[] pins);
+    private static native void writePort(byte[] pins, int value);
 
     public Port(byte... pins) {
         if(pins == null || (pins.length < 1) || (pins.length > 32)) {
@@ -45,16 +47,30 @@ public class Port {
         this.pins = pinArray;
     }
 
-    public Port setMode(int mode) {
-        Port.setMode(pins, mode);
+    public Port setMode(PinMode mode) {
+        int m = switch(mode) {
+            case INPUT -> 0;
+            case OUTPUT -> 1;
+            case INPUT_PULL_UP -> 2;
+            case INPUT_PULL_DOWN -> 3;
+            default -> 4;
+        };
+        Port.setMode(pins, m);
         return this;
     }
 
-    public int readPort() {
+    @Override
+    public int read() {
         return Port.readPort(pins);
     }
 
-    public void writePort(int value) {
+    @Override
+    public void write(int value) {
         Port.writePort(pins, value);
+    }
+
+    @Override
+    public void reset() {
+        Port.writePort(pins, 0);
     }
 }

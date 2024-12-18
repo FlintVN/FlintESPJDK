@@ -1,11 +1,13 @@
 package machine.gpio;
 
-public class Pin {
+import flint.machine.PinController;
+
+public class Pin extends PinController {
     final int pin;
 
-    public static native void setMode(int pin, int mode);
-    public static native boolean readPin(int pin);
-    public static native void writePin(int pin, boolean level);
+    private static native void setMode(int pin, int mode);
+    private static native boolean readPin(int pin);
+    private static native void writePin(int pin, boolean level);
 
     public Pin(int pin) {
         this.pin = pin;
@@ -13,27 +15,38 @@ public class Pin {
 
     public Pin(int pin, int mode) {
         this.pin = pin;
-        Pin.setMode(pin, mode);
+        setMode(pin, mode);
     }
 
-    public Pin setMode(int mode) {
-        Pin.setMode(pin, mode);
+    public Pin setMode(PinMode mode) {
+        int m = switch(mode) {
+            case INPUT -> 0;
+            case OUTPUT -> 1;
+            case INPUT_PULL_UP -> 2;
+            case INPUT_PULL_DOWN -> 3;
+            default -> 4;
+        };
+        Pin.setMode(pin, m);
         return this;
     }
 
-    public boolean readPin() {
+    @Override
+    public boolean read() {
         return Pin.readPin(pin);
     }
 
-    public void writePin(boolean level) {
+    @Override
+    public void write(boolean level) {
         Pin.writePin(pin, level);
     }
 
-    public void setPin() {
+    @Override
+    public void set() {
         Pin.writePin(pin, true);
     }
 
-    public void resetPin() {
+    @Override
+    public void reset() {
         Pin.writePin(pin, false);
     }
 }
