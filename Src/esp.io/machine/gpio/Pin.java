@@ -13,9 +13,9 @@ public class Pin extends PinController {
         this.pin = pin;
     }
 
-    public Pin(int pin, int mode) {
+    public Pin(int pin, PinMode mode) {
         this.pin = pin;
-        setMode(pin, mode);
+        setMode(mode);
     }
 
     public Pin setMode(PinMode mode) {
