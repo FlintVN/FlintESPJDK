@@ -156,7 +156,7 @@ public class SPIMaster extends Communication {
 
     public void setRxBufferSize(int size) {
         checkStateBeforeChange();
-        this.rxBuff = new byte[size];
+        this.rxBuff = (size != 0) ? new byte[size] : null;
     }
 
     public boolean isOpen() {
@@ -171,7 +171,8 @@ public class SPIMaster extends Communication {
 
     @Override
     public void write(byte[] buffer, int offset, int count) {
-        if(count > rxBuff.length)
+        byte[] rxBuff = this.rxBuff;
+        if(rxBuff != null && count > rxBuff.length && getMisoPin() > 0)
             throw new IllegalArgumentException("Receive buffer size is insufficient");
         this.rxIndex = 0;
         this.rxCount = 0;
