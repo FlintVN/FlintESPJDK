@@ -7,6 +7,7 @@ public class SPIMaster extends Communication {
     private int handle;
     private int spi;
     private int speed;
+    private int maxTransferSize;
     private boolean cpol;
     private boolean cpha;
     private boolean isLsb;
@@ -16,6 +17,7 @@ public class SPIMaster extends Communication {
     private int rxCount;
     private byte[] rxBuff;
 
+    private static final int DEFAULT_MAX_TRANSFER_SIZE = 4096;
     private static final int DEFAULT_RX_BUFFER_SIZE = 1024;
 
     private static native int open(int spiId, int speed, int maxTranferSize, byte[] pins, int mode, boolean isLsb, boolean csLevel);
@@ -38,6 +40,7 @@ public class SPIMaster extends Communication {
     public SPIMaster(SPIDevice spi) {
         this.spi = getSpiId(spi);
         this.speed = 5000000;
+        this.maxTransferSize = DEFAULT_MAX_TRANSFER_SIZE;
         this.rxBuff = new byte[DEFAULT_RX_BUFFER_SIZE];
         this.spiPins = new byte[4];
         this.spiPins[0] = (byte)getDefaultMosiPin(this.spi);
@@ -47,9 +50,8 @@ public class SPIMaster extends Communication {
     }
 
     public boolean open() {
-        int rxSize = (rxBuff != null && getMisoPin() > 0) ? rxBuff.length : 0;
         int mode = (cpol ? 2 : 0) | (cpha ? 1 : 0);
-        handle = open(spi, speed, rxSize, spiPins, mode, isLsb, csLevel);
+        handle = open(spi, speed, maxTransferSize, spiPins, mode, isLsb, csLevel);
         return handle != 0;
     }
 
@@ -71,6 +73,15 @@ public class SPIMaster extends Communication {
         if(!isOpen())
             throw new IllegalStateException();
         return getActualSpeed(handle);
+    }
+
+    public int getMaxTransferSize() {
+        return this.maxTransferSize;
+    }
+
+    public void setMaxTransferSize(int value) {
+        checkStateBeforeChange();
+        this.maxTransferSize = value;
     }
 
     public void setSpeed(int speed) {
@@ -156,7 +167,7 @@ public class SPIMaster extends Communication {
 
     public void setRxBufferSize(int size) {
         checkStateBeforeChange();
-        this.rxBuff = new byte[size];
+        this.rxBuff = (size != 0) ? new byte[size] : null;
     }
 
     public boolean isOpen() {
@@ -171,7 +182,8 @@ public class SPIMaster extends Communication {
 
     @Override
     public void write(byte[] buffer, int offset, int count) {
-        if(count > rxBuff.length)
+        byte[] rxBuff = this.rxBuff;
+        if(rxBuff != null && count > rxBuff.length && getMisoPin() > 0)
             throw new IllegalArgumentException("Receive buffer size is insufficient");
         this.rxIndex = 0;
         this.rxCount = 0;
