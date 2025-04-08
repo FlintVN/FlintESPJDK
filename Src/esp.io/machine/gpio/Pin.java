@@ -13,6 +13,7 @@ public class Pin extends PinController {
         this.pin = pin;
     }
 
+    @SuppressWarnings("this-escape")
     public Pin(int pin, PinMode mode) {
         this.pin = pin;
         setMode(mode);
