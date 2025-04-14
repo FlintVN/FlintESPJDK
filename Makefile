@@ -5,11 +5,11 @@ MODULE_SOURCE_PATH  :=  src
 OUTPUT_DIR          :=  bin
 
 OPT                 :=  -g
-JFLAGS              :=  -Xlint:all								\
-                        -XDstringConcat=inline					\
-						--system=none							\
-						-encoding UTF-8							\
-						--module-path="modules/java.base.jar"
+JFLAGS              :=  -Xlint:all                              \
+                        -XDstringConcat=inline                  \
+                        --system=none                           \
+                        -encoding UTF-8                         \
+                        --module-path="modules/java.base.jar"
 
 GREEN               :=  \033[0;32m
 CYAN                :=  \033[0;36m
