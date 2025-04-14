@@ -1,4 +1,4 @@
-package network;
+package esp.network;
 
 public class WiFi {
     private WiFi() {

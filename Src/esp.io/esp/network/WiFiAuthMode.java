@@ -1,4 +1,4 @@
-package network;
+package esp.network;
 
 public enum WiFiAuthMode {
     OPEN,

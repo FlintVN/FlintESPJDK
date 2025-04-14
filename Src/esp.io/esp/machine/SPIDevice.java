@@ -1,4 +1,4 @@
-package machine.spi;
+package esp.machine;
 
 public enum SPIDevice {
     SPI1,

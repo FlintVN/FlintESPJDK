@@ -1,4 +1,6 @@
 # Change Log
+## V0.0.4
+- Reorganize packages (machine.* -> esp.machine and network -> esp.network).
 ## V0.0.3
 - Update machine.gpio and network packages.
 - Support machine.spi.SPIMaster.

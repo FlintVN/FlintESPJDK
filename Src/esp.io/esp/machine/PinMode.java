@@ -1,4 +1,4 @@
-package machine.gpio;
+package esp.machine;
 
 public enum PinMode {
     INPUT,

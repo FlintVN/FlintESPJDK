@@ -1,4 +1,4 @@
-package machine.spi;
+package esp.machine;
 
 import java.io.IOException;
 import flint.machine.Communication;

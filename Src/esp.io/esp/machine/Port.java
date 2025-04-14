@@ -1,4 +1,4 @@
-package machine.gpio;
+package esp.machine;
 
 import flint.machine.PortController;
 
