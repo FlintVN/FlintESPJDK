@@ -1,4 +1,6 @@
 # Change Log
+## V0.0.5
+- Update esp.machine to match with FlintESPJVM V0.0.9
 ## V0.0.4
 - Reorganize packages (machine.* -> esp.machine and network -> esp.network).
 ## V0.0.3
