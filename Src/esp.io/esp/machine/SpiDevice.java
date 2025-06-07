@@ -1,6 +1,6 @@
 package esp.machine;
 
-public enum SPIDevice {
+public enum SpiDevice {
     SPI1,
     SPI2,
     SPI3,
