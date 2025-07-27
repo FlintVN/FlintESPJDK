@@ -19,6 +19,9 @@ public class Pin extends PinController {
     @Override
     public native void reset();
 
+    @Override
+    public native void toggle();
+
     public Pin(int pin) {
         this.pin = pin;
     }
