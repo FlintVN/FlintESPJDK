@@ -1,4 +1,7 @@
 # Change Log
+## V0.0.7
+- Updated for compatibility with [FlintJDK V0.0.9](https://github.com/FlintVN/FlintJDK/releases/tag/V0.0.9).
+- Support esp.machine.Pin.toggle() method.
 ## V0.0.6
 - Support creating jar files including java source.
 - Fix esp.network.AccessPointRecord not compatible with VM.
