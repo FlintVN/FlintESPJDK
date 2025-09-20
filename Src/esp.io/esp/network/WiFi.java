@@ -15,7 +15,7 @@ public class WiFi {
     private static native void softAP(String ssid, String password, int authMode, int channel, int maxConnection);
     public static native void softAPdisconnect();
 
-    public static native void startScan(boolean block);
+    public static native void startScan(boolean blocked);
     public static native AccessPointRecord[] getScanResults();
     public static native void stopScan();
 
