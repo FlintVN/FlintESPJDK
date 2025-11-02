@@ -2,7 +2,10 @@
 
 Provides a Java library that runs on FlintESPJVM to access ESP32 peripherals。
 
-zero means for starter and easy to use
+zero means for starter and easy to use.
+
+FlintESPJDK and FlintJDK provide java api for programing ESP32. The JVM in ESP32 will 
+execute the compiled main.class.
 
 ```mermaid
 graph TD
