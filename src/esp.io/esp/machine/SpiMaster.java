@@ -30,10 +30,10 @@ public class SpiMaster implements SpiMasterInterface {
     }
 
     @Override
-    public native void open();
+    public native void open() throws IOException;
 
     @Override
-    public native void close();
+    public native void close() throws IOException;
 
     @Override
     public native boolean isOpen();
@@ -43,7 +43,7 @@ public class SpiMaster implements SpiMasterInterface {
             throw new IllegalStateException();
     }
 
-    public native int getSpeed();
+    public native int getSpeed() throws IOException;
 
     public void setSpeed(int speed) {
         checkStateBeforeConfig();
@@ -136,30 +136,36 @@ public class SpiMaster implements SpiMasterInterface {
     }
 
     @Override
-    public int read(byte[] buffer) {
-        return readWrite(null, 0, buffer, 0, buffer.length);
+    public native int read() throws IOException;
+
+    @Override
+    public int read(byte[] b) throws IOException {
+        return readWrite(null, 0, b, 0, b.length);
     }
 
     @Override
-    public int read(byte[] buffer, int offset, int count) {
-        return readWrite(null, 0, buffer, offset, count);
+    public int read(byte[] b, int off, int count) throws IOException {
+        return readWrite(null, 0, b, off, count);
     }
 
     @Override
-    public void write(byte[] buffer) {
-        readWrite(buffer, 0, null, 0, buffer.length);
+    public native void write(int b) throws IOException;
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        readWrite(b, 0, null, 0, b.length);
     }
 
     @Override
-    public void write(byte[] buffer, int offset, int count) {
-        readWrite(buffer, offset, null, 0, count);
+    public void write(byte[] b, int off, int count) throws IOException {
+        readWrite(b, off, null, 0, count);
     }
 
     @Override
-    public int readWrite(byte[] txBuffer, byte[] rxBuffer, int count) {
-        return readWrite(txBuffer, 0, rxBuffer, 0, count);
+    public int readWrite(byte[] tx, byte[] rx, int count) throws IOException {
+        return readWrite(tx, 0, rx, 0, count);
     }
 
     @Override
-    public native int readWrite(byte[] txBuffer, int txOffset, byte[] rxBuffer, int rxOffset, int count);
+    public native int readWrite(byte[] tx, int txOff, byte[] rx, int rxOff, int count) throws IOException;
 }
