@@ -1,4 +1,6 @@
 # Change Log
+## V0.0.9
+- Updated for compatibility with [FlintJDK V1.0.0](https://github.com/FlintVN/FlintJDK/releases/tag/V1.0.0).
 ## V0.0.8
 - Updated for compatibility with [FlintJDK V0.0.10](https://github.com/FlintVN/FlintJDK/releases/tag/V0.0.10).
 ## V0.0.7
