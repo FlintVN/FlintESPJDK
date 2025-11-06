@@ -2,8 +2,23 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "clean",
+            "group": "build",
+            "type": "shell",
+            "options": {"cwd": "${workspaceFolder}"},
+            "command": "make clean",
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "showReuseMessage": false,
+                "clear": true
+            }
+        },
+        {
             "label": "build",
             "type": "shell",
+            "dependsOn": ["clean"],
+            "dependsOrder": "sequence",
             "command": "make",
             "args": [
                 "-j${env:NUMBER_OF_PROCESSORS}"
